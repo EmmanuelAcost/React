@@ -7,10 +7,10 @@ const Routes = () => {
   return (
     <>
       <Switch>
-        <Route exact path={"/"}>
+        {/* <Route exact path={"/"}>
           <FullLayout></FullLayout>
-        </Route>
-        <Route exact path={"/sale"}>
+        </Route> */}
+        <Route exact path={"/"}>
           <FullLayout>
             <Showcase />
           </FullLayout>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Audio, BallTriangle } from "react-loader-spinner";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { getProducts } from "../../../API/product";
@@ -11,10 +12,12 @@ function Showcase(props) {
   const [selectItems, setSelectItems] = useState([]);
   const [temp, setTemp] = useState([]);
   const [search, setSearch] = useState({ search: "", tel: "" });
+  const [loading, setLoading] = useState(true);
 
   const getAllProduct = async () => {
     const res = await getProducts();
     setListProducts(res);
+    setLoading(false);
   };
   const MySwal = withReactContent(Swal);
   const message = () => {
@@ -35,6 +38,7 @@ function Showcase(props) {
 
   useEffect(() => {
     getTotal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [temp]);
 
   const selectProduct = (item, operation) => {
@@ -52,6 +56,7 @@ function Showcase(props) {
         setSelectItems(dele);
       } else {
         setTemp([...temp, listas]);
+        // eslint-disable-next-line array-callback-return
         temp.map((item) => {
           let validate = item?.find((i) => i.id === selectItems.id);
           if (validate) {
@@ -67,6 +72,7 @@ function Showcase(props) {
 
   const getTotal = () => {
     let total = 0;
+    // eslint-disable-next-line array-callback-return
     selectItems.map((elem) => {
       total = total + elem.price * elem.count;
     });
@@ -75,6 +81,17 @@ function Showcase(props) {
 
   return (
     <div className="px-5 py-3 ">
+      {loading ? (
+        <div className="loading text-center">
+          <BallTriangle
+            height="100"
+            width="100"
+            color="#ff5d54"
+            wrapperStyle
+            wrapperClass
+          />
+        </div>
+      ) : null}
       <div>
         <div
           style={{ boxShadow: "0px 3px 6px #00000029" }}
