@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { getProducts } from "../../../API/product";
 import ListProduct from "../../../components/ListProduct";
 import ProductSelect from "../../../components/ProductSelect";
@@ -8,15 +10,29 @@ function Showcase(props) {
   const [listProducts, setListProducts] = useState([]);
   const [selectItems, setSelectItems] = useState([]);
   const [temp, setTemp] = useState([]);
+  const [search, setSearch] = useState({ search: "", tel: "" });
 
   const getAllProduct = async () => {
     const res = await getProducts();
     setListProducts(res);
   };
+  const MySwal = withReactContent(Swal);
+  const message = () => {
+    MySwal.fire({
+      title: <strong>Registro exitoso</strong>,
+      customClass: {
+        confirmButton: "btnPrimary",
+      },
+      confirmButtonText: "Finalizar",
+      // html: <i>You clicked the button!</i>,
+      icon: "success",
+    });
+  };
 
   useEffect(() => {
     getAllProduct();
   }, []);
+
   useEffect(() => {
     getTotal();
   }, [temp]);
@@ -60,7 +76,20 @@ function Showcase(props) {
   return (
     <div className="px-5 py-3 ">
       <div>
-        <div></div>
+        <div
+          style={{ boxShadow: "0px 3px 6px #00000029" }}
+          className="row mb-3"
+        >
+          <div className="col"></div>
+          <div className="bg-white col-8 px-4 py-3">
+            <input
+              className="inputSearch"
+              placeholder="Buscar producto"
+              onChange={(e) => setSearch({ ...search, search: e.target.value })}
+            />
+          </div>
+          <div className="col"></div>
+        </div>
         <div className="row">
           <div className="col"></div>
           <div className="col-8 px-4">
@@ -93,9 +122,34 @@ function Showcase(props) {
                 </div>
               </div>
               <div className="content2">
-                <ProductSelect proSelect={selectItems} deleteItem={setSelectItems} />
+                <ProductSelect
+                  proSelect={selectItems}
+                  deleteItem={setSelectItems}
+                />
               </div>
-              <div className="h-100 bg-white"></div>
+              <div
+                style={{ boxShadow: "0px -3px 6px #00000029" }}
+                className="h-100 bg-white px-3 pt-3"
+              >
+                <div className="mb-3">
+                  <input
+                    className="inputSearch"
+                    placeholder="Celular"
+                    onChange={(e) =>
+                      setSearch({ ...search, tel: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="text-center">
+                  <button
+                    disabled={search.tel === "" ? true : false}
+                    className="btnPrimary"
+                    onClick={() => message()}
+                  >
+                    VENDER
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

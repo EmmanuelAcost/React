@@ -62,7 +62,12 @@ function Sidebar() {
             </span>
             <b>Reportes</b>
           </li>
-          x
+          <div className="text-center my-2">
+            <button className="btnPrimary">CERRAR CAJA</button>
+          </div>
+          <div className="text-center">
+            <button className="btnPrimary">SALIR</button>
+          </div>
         </ul>
       </nav>
     </div>
