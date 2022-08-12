@@ -1,0 +1,13 @@
+.containerHeader {
+    background: transparent linear-gradient(90deg, #ff9b5c 0%, #ff5353 100%) 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 0px #00000029;
+    opacity: 1;
+    width: 100%;
+    height: 128px;
+    
+}
+.titleHeader {
+    font: normal normal bold 34px/42px;
+    text-align: center;
+    color: #ffffff;
+}
